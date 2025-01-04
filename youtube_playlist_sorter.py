@@ -11,7 +11,13 @@ def getResponse(driver, url):
 
 def sort_videos(driver, path):
 	directory_list = os.listdir(path)
-	names = driver.find_elements_by_id("video-title")
+
+	# this has been deprecated
+	# names = driver.find_elements_by_id("video-title")
+	####################
+
+	names = driver.find_elements(By.ID, "video-title") 
+
 	print("Sorting. Please wait.......")
 	for i, new_name in enumerate(names):
 		# if new_name.text in directory_list:
@@ -29,7 +35,8 @@ def sort_videos(driver, path):
 
 def main():
 	#setting the new path for webdriver
-	new_directory = 'F:/__Mix Soft 1'
+	# new_directory = input("Enter the path of webdriver folder: ").replace('\\','/')
+	new_directory = "E:\\T\\Programs_27\\Python_Projects\Projects\\Youtube Playlist Sorter\\chromedriver-win64\\"
 	current_path = os.environ["PATH"]
 	os.environ["PATH"] = new_directory + ";" + current_path
 
@@ -41,12 +48,14 @@ def main():
 	driver = webdriver.Chrome(options=options)
 
 	# getting playlist url from the user
-	url = input("Enter the url of Youtube Playlist: ")
+	# url = input("Enter the url of Youtube Playlist: ")
+	url = "https://www.youtube.com/playlist?list=PLo2EIpI_JMQvWfQndUesu0nPBAtZ9gP1o"
 
 	driver = getResponse(driver,url)
 
 	# getting folder path of the folder to be sorted in
-	path = input("Enter the path of folder: ").replace('\\','/')
+	# path = input("Enter the path of folder: ").replace('\\','/')
+	path = "E:\\T\\HuggingFace Courses\\"
 	sort_videos(driver, path)
 	driver.quit()
 	print("Success!")
